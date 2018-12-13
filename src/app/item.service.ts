@@ -35,7 +35,7 @@ export class ItemService {
   /* GET items whose name contains search term */
   searchItems(term: string): Observable<Item[]> {
     if (!term.trim()) {
-      // if not search term, return empty hero array.
+      // if not search term, return empty item array.
       return of([]);
     }
     return this.http.get<Item[]>(`${this.itemsUrl}/?name=${term}`).pipe(
@@ -44,7 +44,7 @@ export class ItemService {
     );
   }
 
-  /** GET hero by id. Will 404 if id not found */
+  /** GET item by id. Will 404 if id not found */
   getItem(id: number): Observable<Item> {
     const url = `${this.itemsUrl}/${id}`;
     return this.http.get<Item>(url).pipe(
@@ -61,22 +61,22 @@ export class ItemService {
     );
   }
 
-  /** PUT: update the hero on the server */
-  updateItem(hero: Item): Observable<any> {
-    return this.http.put(this.itemsUrl, hero, httpOptions).pipe(
-      tap(_ => this.log(`updated item id=${hero.id}`)),
+  /** PUT: update the item on the server */
+  updateItem(item: Item): Observable<any> {
+    return this.http.put(this.itemsUrl, item, httpOptions).pipe(
+      tap(_ => this.log(`updated item id=${item.id}`)),
       catchError(this.handleError<any>("updateItem"))
     );
   }
 
-  /** DELETE: delete the hero from the server */
+  /** DELETE: delete the item from the server */
   deleteItem(item: Item | number): Observable<Item> {
     const id = typeof item === "number" ? item : item.id;
     const url = `${this.itemsUrl}/${id}`;
 
     return this.http.delete<Item>(url, httpOptions).pipe(
       tap(_ => this.log(`deleted item id=${id}`)),
-      catchError(this.handleError<Item>("deleteHero"))
+      catchError(this.handleError<Item>("deleteItem"))
     );
   }
   /**
