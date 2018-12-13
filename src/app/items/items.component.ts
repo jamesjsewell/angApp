@@ -1,5 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { Item } from "../item";
+import { ITEMS } from "../mock-items";
+import { ItemService } from "../item.service";
 
 @Component({
   selector: "app-items",
@@ -7,11 +9,20 @@ import { Item } from "../item";
   styleUrls: ["./items.component.scss"],
 })
 export class ItemsComponent implements OnInit {
-  item: Item = {
-    id: 1,
-    name: "truck",
-  };
-  constructor() {}
+  items: Item[];
+  selectedItem: Item;
 
-  ngOnInit() {}
+  constructor(private itemService: ItemService) {}
+
+  ngOnInit() {
+    this.getItems();
+  }
+
+  getItems(): void {
+    this.items = this.itemService.getItems();
+  }
+
+  onSelect(item: Item): void {
+    this.selectedItem = item;
+  }
 }
