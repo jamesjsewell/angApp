@@ -8,16 +8,16 @@ import { Injectable } from "@angular/core";
 export class InMemoryDataService implements InMemoryDbService {
   createDb() {
     const items = [
-      { id: 11, name: "Mr. Nice" },
-      { id: 12, name: "Narco" },
-      { id: 13, name: "Bombasto" },
-      { id: 14, name: "Celeritas" },
-      { id: 15, name: "Magneta" },
-      { id: 16, name: "RubberMan" },
-      { id: 17, name: "Dynama" },
-      { id: 18, name: "Dr IQ" },
-      { id: 19, name: "Magma" },
-      { id: 20, name: "Tornado" },
+      { id: 11, name: "phone" },
+      { id: 12, name: "tablet" },
+      { id: 13, name: "laptop" },
+      { id: 14, name: "tv" },
+      { id: 15, name: "speakers" },
+      { id: 16, name: "pc" },
+      { id: 17, name: "keyboard" },
+      { id: 18, name: "mouse" },
+      { id: 19, name: "router" },
+      { id: 20, name: "desk" },
     ];
     return { items };
   }
