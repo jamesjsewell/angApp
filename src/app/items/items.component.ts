@@ -1,6 +1,5 @@
 import { Component, OnInit } from "@angular/core";
 import { Item } from "../item";
-import { ITEMS } from "../mock-items";
 import { ItemService } from "../item.service";
 
 @Component({
@@ -17,7 +16,22 @@ export class ItemsComponent implements OnInit {
     this.getItems();
   }
 
+  add(name: string): void {
+    name = name.trim();
+    if (!name) {
+      return;
+    }
+    this.itemService.addItem({ name } as Item).subscribe(item => {
+      this.items.push(item);
+    });
+  }
+
   getItems(): void {
     this.itemService.getItems().subscribe(items => (this.items = items));
+  }
+
+  delete(item: Item): void {
+    this.items = this.items.filter(theItem => theItem !== item);
+    this.itemService.deleteItem(item).subscribe();
   }
 }
