@@ -10,7 +10,6 @@ import { ItemService } from "../item.service";
 })
 export class ItemsComponent implements OnInit {
   items: Item[];
-  selectedItem: Item;
 
   constructor(private itemService: ItemService) {}
 
@@ -19,10 +18,6 @@ export class ItemsComponent implements OnInit {
   }
 
   getItems(): void {
-    this.items = this.itemService.getItems();
-  }
-
-  onSelect(item: Item): void {
-    this.selectedItem = item;
+    this.itemService.getItems().subscribe(items => (this.items = items));
   }
 }
