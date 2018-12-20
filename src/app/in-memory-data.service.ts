@@ -19,7 +19,13 @@ export class InMemoryDataService implements InMemoryDbService {
       { id: 19, name: "router" },
       { id: 20, name: "desk" },
     ];
-    return { items };
+
+    const favorites = [
+      { id: 1, itemId: 15 },
+      { id: 2, itemId: 16 },
+      { id: 3, itemId: 17 }
+    ]
+    return { items, favorites };
   }
 
   // Overrides the genId method to ensure that an item always has an id.

@@ -135,5 +135,8 @@
       }
     }
   },
-  "defaultProject": "angApp"
+  "defaultProject": "angApp",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }
