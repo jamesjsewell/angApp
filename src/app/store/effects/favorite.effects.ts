@@ -8,16 +8,33 @@ import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { Favorite } from '../../Favorite'
 import * as fromStore from '../reducers';
+import { catchError, map, mergeMap, switchMap } from 'rxjs/operators';
 
 
 @Injectable()
 export class FavoritesEffects {
-  favoritesUrl = "api/favorites"
+  favoritesUrl = 'api/favorites'
   constructor(private store: Store<fromStore.State>, private actions$: Actions,
     private http: HttpClient) { }
 
   @Effect()
   storeFavorites$: Observable<Action> = this.actions$.pipe(
     ofType(favoriteActions.FavoriteActionTypes.LoadFavorites),
+    switchMap(() => {
+      return this.http.get<Favorite[]>(this.favoritesUrl)
+        .pipe(
+          map((payload) => {
+
+            if (payload && payload.length) {
+              new favoriteActions.ShouldNotLoadFavorites();
+              return new favoriteActions.StoreFavorites(payload)
+            }
+
+          })
+        )
+    })
   )
+
 }
+
+

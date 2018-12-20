@@ -11,14 +11,14 @@ import * as favoritesActions from '../store/actions/favorite.actions';
 })
 export class FavoritesComponent implements OnInit {
 
-
+  favorites$: Observable<object[]>;
 
   constructor(private store: Store<fromStore.State>) {
 
   }
 
   ngOnInit() {
-
+    this.favorites$ = this.store.select(fromStore.getFavorites);
   }
 
 }

@@ -1,1 +1,3 @@
-<p></p>
+<ul *ngFor="let favorite of favorites$ | async">
+  {{favorite.itemId}}
+</ul>

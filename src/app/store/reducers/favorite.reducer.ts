@@ -47,5 +47,5 @@ export function reducer(state = initialState, action): State {
 }
 
 export const getShouldLoadFavorites = (state: State) => state.shouldLoadFavorites;
-
+export const getFavorites = (state: State) => state.favorites;
 
