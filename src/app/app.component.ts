@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromRoot from './store/reducers';
-import * as authActions from './store/actions/favorite.actions';
 
 @Component({
   selector: 'app-root',
@@ -14,6 +13,6 @@ export class AppComponent {
 
   }
   ngOnInit() {
-    this.store.dispatch(new authActions.LoadFavorites());
+
   }
 }

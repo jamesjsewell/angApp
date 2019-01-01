@@ -18,6 +18,7 @@ export class FavoritesComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.store.dispatch(new favoritesActions.LoadFavorites());
     this.favorites$ = this.store.select(fromStore.getFavorites);
   }
 

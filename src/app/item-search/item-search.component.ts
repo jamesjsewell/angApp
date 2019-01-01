@@ -4,7 +4,7 @@ import { Observable, Subject } from "rxjs";
 
 import { debounceTime, distinctUntilChanged, switchMap } from "rxjs/operators";
 
-import { Item } from "../item";
+import { Item } from "../Item";
 import { ItemService } from "../item.service";
 
 @Component({

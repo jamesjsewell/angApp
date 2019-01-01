@@ -1,30 +1,21 @@
 import { Action } from '@ngrx/store';
 import { Favorite } from '../../Favorite'
+import { Item } from '../../Item'
 
 export enum FavoriteActionTypes {
   LoadFavorites = '[Favorite] Load Favorites',
-  ShouldLoadFavorites = '[Favorite] Should Load Favorites',
-  ShouldNotLoadFavorites = '[Favorite] Should Not Load Favorites',
-  StoreFavorites = '[Favorite] Store Favorites'
+  LoadFavoritesSuccess = '[Favorite] Load Favorites Success'
 }
 
 export class LoadFavorites implements Action {
   readonly type = FavoriteActionTypes.LoadFavorites;
 }
 
-export class ShouldLoadFavorites implements Action {
-  readonly type = FavoriteActionTypes.ShouldLoadFavorites;
-}
-
-export class ShouldNotLoadFavorites implements Action {
-  readonly type = FavoriteActionTypes.ShouldNotLoadFavorites;
-}
-
-export class StoreFavorites implements Action {
-  readonly type = FavoriteActionTypes.StoreFavorites;
-  constructor(private payload: Favorite[]) {
+export class LoadFavoritesSuccess implements Action {
+  readonly type = FavoriteActionTypes.LoadFavoritesSuccess;
+  constructor(private payload: Item[]) {
 
   }
 }
 
-export type FavoriteActions = { LoadFavorites, ShouldLoadFavorites, ShouldNotLoadFavorites, StoreFavorites };
+export type FavoriteActions = { LoadFavorites, LoadFavoritesSuccess };

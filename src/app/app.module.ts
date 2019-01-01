@@ -1,3 +1,4 @@
+import 'hammerjs';
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { FormsModule } from "@angular/forms";
@@ -19,6 +20,9 @@ import { AppEffects } from './store/effects/app.effects';
 import { environment } from '../environments/environment';
 import { FavoritesComponent } from './favorites/favorites.component';
 import { FavoritesEffects } from './store/effects/favorite.effects';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+import {MatButtonModule} from '@angular/material/button';
 
 
 @NgModule({
@@ -42,6 +46,8 @@ import { FavoritesEffects } from './store/effects/favorite.effects';
     StoreModule.forRoot(reducers, { metaReducers }),
     EffectsModule.forRoot([FavoritesEffects]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
+    BrowserAnimationsModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent],

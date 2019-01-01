@@ -22,7 +22,6 @@ export const reducers: ActionReducerMap<State> = {
 export const metaReducers: MetaReducer<State>[] = !environment.production ? [] : [];
 
 export const selectFavoritesState = createFeatureSelector<fromFavorites.State>('favorites');
-export const getShouldLoadFavorites = createSelector(selectFavoritesState, fromFavorites.getShouldLoadFavorites);
 export const getFavorites = createSelector(selectFavoritesState, fromFavorites.getFavorites)
 
 

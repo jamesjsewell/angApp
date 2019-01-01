@@ -3,12 +3,10 @@ import * as favoritesActions from '../actions/favorite.actions';
 import { Favorite } from '../../Favorite'
 
 export interface State {
-  shouldLoadFavorites?: boolean
   favorites: Favorite[]
 }
 
 export const initialState: State = {
-  shouldLoadFavorites: true,
   favorites: []
 }
 
@@ -17,23 +15,10 @@ export function reducer(state = initialState, action): State {
 
     case favoritesActions.FavoriteActionTypes.LoadFavorites:
       return {
-        ...state,
-        shouldLoadFavorites: false
+        ...state
       }
 
-    case favoritesActions.FavoriteActionTypes.ShouldLoadFavorites:
-      return {
-        ...state,
-        shouldLoadFavorites: true
-      }
-
-    case favoritesActions.FavoriteActionTypes.ShouldNotLoadFavorites:
-      return {
-        ...state,
-        shouldLoadFavorites: false
-      }
-
-    case favoritesActions.FavoriteActionTypes.StoreFavorites:
+    case favoritesActions.FavoriteActionTypes.LoadFavoritesSuccess:
       return {
         ...state,
         favorites: action.payload
@@ -46,6 +31,5 @@ export function reducer(state = initialState, action): State {
   }
 }
 
-export const getShouldLoadFavorites = (state: State) => state.shouldLoadFavorites;
 export const getFavorites = (state: State) => state.favorites;
 

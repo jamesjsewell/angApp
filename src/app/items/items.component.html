@@ -11,5 +11,5 @@
 <div>
   <label>Item name: <input #itemName /> </label>
   <!-- (click) passes input value to add() and then clears the input -->
-  <button (click)="add(itemName.value); itemName.value = ''">add</button>
+  <button mat-raised-button color="primary" (click)="add(itemName.value); itemName.value = ''">add</button>
 </div>
