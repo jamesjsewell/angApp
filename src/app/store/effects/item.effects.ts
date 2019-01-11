@@ -3,6 +3,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { Action } from '@ngrx/store';
 import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { Location } from "@angular/common"
 import { Observable, of} from 'rxjs';
 import { tap, filter } from 'rxjs/operators';
 import * as fromStore from '../reducers';
@@ -22,8 +23,12 @@ export class ItemsEffects {
   favoritesUrl = 'api/favorites'
   items$: Observable<object[]>
   itemIds: Number[]
-  constructor(private store: Store<fromStore.State>, private actions$: Actions,
-    private http: HttpClient) { }
+  constructor(
+    private store: Store<fromStore.State>,
+    private actions$: Actions,
+    private http: HttpClient,
+    private location: Location
+  ) { }
 
   @Effect()
   public addItem$ = this.actions$.pipe(
@@ -93,12 +98,13 @@ export class ItemsEffects {
       )
     )
 
+  @Effect()
+  public updateItemSuccess$ = this.actions$.pipe(
+    ofType(itemActions.ItemActionTypes.UpdateItemSuccess),
+    switchMap(( action: itemActions.UpdateItemSuccess) => {
+      this.location.back()
+      return []
+    })
+  )
 }
 
-// /** PUT: update the item on the server */
-// updateItem(item: Item): Observable<any> {
-//   return this.http.put(this.itemsUrl, item, httpOptions).pipe(
-//     tap(_ => this.log(`updated item id=${item.id}`)),
-//     catchError(this.handleError<any>("updateItem"))
-//   );
-// }
