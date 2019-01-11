@@ -37,6 +37,6 @@ export class ItemsComponent implements OnInit {
   }
 
   delete(item: Item): void {
-
+    this.store.dispatch(new itemActions.DeleteItem(item as Item))
   }
 }

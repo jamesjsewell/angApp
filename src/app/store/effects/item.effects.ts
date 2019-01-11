@@ -106,5 +106,24 @@ export class ItemsEffects {
       return []
     })
   )
+
+  @Effect()
+  public deleteItem$ = this.actions$.pipe(
+    ofType(itemActions.ItemActionTypes.DeleteItem),
+    switchMap(( action: itemActions.DeleteItem) =>
+      this.http.delete<Item>(`${this.itemsUrl}/${action.payload.id}`, httpOptions)
+        .pipe(
+          map(( _ ) => {
+            return new itemActions.DeleteItemSuccess(action.payload)
+          }),
+          catchError((error) => {
+            return of({
+              type: "",
+              payload: { error }
+            });
+          })
+        )
+      )
+    )
 }
 

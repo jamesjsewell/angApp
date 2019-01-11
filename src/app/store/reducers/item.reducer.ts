@@ -14,14 +14,12 @@ export function reducer(state = initialState, action): State {
   switch (action.type) {
 
     case itemActions.ItemActionTypes.AddItemSuccess:
-
       return {
         ...state,
         items: [...state.items, ...[action.payload]]
       }
 
     case itemActions.ItemActionTypes.LoadItems:
-
       return {
         ...state
       }
@@ -33,10 +31,19 @@ export function reducer(state = initialState, action): State {
       }
 
     case itemActions.ItemActionTypes.UpdateItem:
-    return {
-      ...state,
-      items: [...state.items, ...[action.payload]]
-    }
+      return {
+        ...state,
+        items: [...state.items, ...[action.payload]]
+      }
+
+    case itemActions.ItemActionTypes.DeleteItemSuccess:
+      const itemsArray = [...state.items]
+      const itemIndex = itemsArray.indexOf(action.payload)
+      itemsArray.splice(itemIndex, 1)
+      return {
+        ...state,
+        items: itemsArray
+      }
 
     default:
       return state;
