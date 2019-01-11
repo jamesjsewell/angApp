@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
-import { Store } from '@ngrx/store';
-import * as fromRoot from './store/reducers';
+import { Component } from '@angular/core'
+import { Store } from '@ngrx/store'
+import { Item } from './Item'
+import * as fromRoot from './store/reducers'
 import * as itemActions from './store/actions/item.actions'
 
 @Component({

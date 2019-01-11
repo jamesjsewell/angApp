@@ -36,7 +36,10 @@ export class NoItems implements Action {
 }
 
 export class AddItem implements Action {
-  readonly type = ItemActionTypes.LoadItemsSuccess;
+  readonly type = ItemActionTypes.AddItem;
+  constructor(public payload: Item) {
+
+  }
 }
 
 export class AddItemSuccess implements Action {
@@ -46,4 +49,4 @@ export class AddItemSuccess implements Action {
   }
 }
 
-export type ItemActions = { LoadItems, LoadItemsSuccess, AddItemSuccess, NoItems };
+export type ItemActions = { AddItem, AddItemSuccess, LoadItems, LoadItemsSuccess, NoItems };

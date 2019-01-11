@@ -13,25 +13,24 @@ export const initialState: State = {
 export function reducer(state = initialState, action): State {
   switch (action.type) {
 
+    case itemActions.ItemActionTypes.AddItemSuccess:
+
+      return {
+        ...state,
+        items: [...state.items, ...[action.payload]]
+      }
+
     case itemActions.ItemActionTypes.LoadItems:
+
       return {
         ...state
       }
 
     case itemActions.ItemActionTypes.LoadItemsSuccess:
-
       return {
         ...state,
         items: action.payload
       }
-
-    case itemActions.ItemActionTypes.AddItemSuccess:
-      console.log('added items', action.payload, "old items: ", state.items)
-      return {
-        ...state,
-        items: [state.items, ...action.payload]
-      }
-
 
     default:
       return state;

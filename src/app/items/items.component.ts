@@ -26,10 +26,13 @@ export class ItemsComponent implements OnInit {
   }
 
   add(name: string): void {
+
     name = name.trim();
     if (!name) {
       return;
     }
+
+    this.store.dispatch(new itemActions.AddItem({ name } as Item))
 
   }
 

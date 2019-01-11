@@ -21,6 +21,25 @@ export class ItemsEffects {
     private http: HttpClient) { }
 
   @Effect()
+  public addItem$ = this.actions$.pipe(
+    ofType(itemActions.ItemActionTypes.AddItem),
+    switchMap(( action: itemActions.AddItem) =>
+      this.http.post<Item>(this.itemsUrl, action.payload)
+        .pipe(
+          map(( createdItem ) => {
+            if(createdItem && createdItem.id) return new itemActions.AddItemSuccess(createdItem)
+          }),
+          catchError((error) => {
+            return of({
+              type: "",
+              payload: { error }
+            });
+          })
+        )
+      )
+    )
+
+  @Effect()
   public loadItems$ = this.actions$.pipe(
     ofType(itemActions.ItemActionTypes.LoadItems),
     switchMap(() =>
