@@ -11,6 +11,7 @@ import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import { ItemsComponent } from "./items/items.component";
 import { ItemDetailComponent } from "./item-detail/item-detail.component";
+import { ItemsEffects } from './store/effects/item.effects';
 import { MessagesComponent } from "./messages/messages.component";
 import { DashboardComponent } from "./dashboard/dashboard.component";
 import { InMemoryDataService } from "./in-memory-data.service";
@@ -23,7 +24,6 @@ import { FavoritesEffects } from './store/effects/favorite.effects';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {MatButtonModule} from '@angular/material/button';
-
 
 @NgModule({
   declarations: [
@@ -44,7 +44,7 @@ import {MatButtonModule} from '@angular/material/button';
       dataEncapsulation: false,
     }),
     StoreModule.forRoot(reducers, { metaReducers }),
-    EffectsModule.forRoot([FavoritesEffects]),
+    EffectsModule.forRoot([FavoritesEffects, ItemsEffects]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     BrowserAnimationsModule,
     MatButtonModule

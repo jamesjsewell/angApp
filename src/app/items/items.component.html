@@ -1,5 +1,5 @@
 <ul class="items">
-  <li *ngFor="let item of items">
+  <li *ngFor="let item of items$ | async">
     <a routerLink="/detail/{{item.id}}">
       <span class="badge">{{ item.id }}</span> {{ item.name }}
     </a>

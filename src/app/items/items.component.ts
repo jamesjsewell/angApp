@@ -1,6 +1,10 @@
 import { Component, OnInit } from "@angular/core";
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs'
 import { Item } from "../Item";
-import { ItemService } from "../item.service";
+import * as fromStore from '../store/reducers';
+import * as itemActions from '../store/actions/item.actions';
+
 
 @Component({
   selector: "app-items",
@@ -8,12 +12,17 @@ import { ItemService } from "../item.service";
   styleUrls: ["./items.component.scss"]
 })
 export class ItemsComponent implements OnInit {
-  items: Item[];
 
-  constructor(private itemService: ItemService) {}
+  items$: Observable<object[]>;
+
+  constructor(private store: Store<fromStore.State>) {
+
+  }
 
   ngOnInit() {
-    this.getItems();
+
+    this.items$ = this.store.select(fromStore.getItems);
+
   }
 
   add(name: string): void {
@@ -21,17 +30,10 @@ export class ItemsComponent implements OnInit {
     if (!name) {
       return;
     }
-    this.itemService.addItem({ name } as Item).subscribe(item => {
-      this.items.push(item);
-    });
-  }
 
-  getItems(): void {
-    this.itemService.getItems().subscribe(items => (this.items = items));
   }
 
   delete(item: Item): void {
-    this.items = this.items.filter(theItem => theItem !== item);
-    this.itemService.deleteItem(item).subscribe();
+
   }
 }

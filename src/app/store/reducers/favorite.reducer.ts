@@ -24,8 +24,6 @@ export function reducer(state = initialState, action): State {
         favorites: action.payload
       }
 
-
-
     default:
       return state;
   }

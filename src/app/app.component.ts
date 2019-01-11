@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromRoot from './store/reducers';
+import * as itemActions from './store/actions/item.actions'
 
 @Component({
   selector: 'app-root',
@@ -13,6 +14,6 @@ export class AppComponent {
 
   }
   ngOnInit() {
-
+    this.store.dispatch(new itemActions.LoadItems())
   }
 }
