@@ -6,18 +6,28 @@ import { Store } from '@ngrx/store';
 import { Item } from '../../Item'
 import * as fromStore from '../reducers';
 
-const itemsUrl = '/items'
-
-const httpOptions = {
-  headers: new HttpHeaders({ "Content-Type": "application/json" }),
-};
-
 export enum ItemActionTypes {
+  AddItem = 'Item Add Item',
+  AddItemSuccess = 'Item Add Item Success',
   LoadItems = '[Item] Load Items',
   LoadItemsSuccess = '[Item] Load Items Success',
-  AddItem = '[Item] Add Item',
-  AddItemSuccess = '[Item] Add Item Success',
-  NoItems = '[Item] No Items'
+  NoItems = '[Item] No Items',
+  UpdateItem = 'Item Update Item',
+  UpdateItemSuccess = 'Item Update Item Success'
+}
+
+export class AddItem implements Action {
+  readonly type = ItemActionTypes.AddItem;
+  constructor(public payload: Item) {
+
+  }
+}
+
+export class AddItemSuccess implements Action {
+  readonly type = ItemActionTypes.AddItemSuccess;
+  constructor(private payload: Item) {
+
+  }
 }
 
 export class LoadItems implements Action {
@@ -35,18 +45,18 @@ export class NoItems implements Action {
   readonly type = ItemActionTypes.NoItems;
 }
 
-export class AddItem implements Action {
-  readonly type = ItemActionTypes.AddItem;
+export class UpdateItem implements Action {
+  readonly type = ItemActionTypes.UpdateItem;
   constructor(public payload: Item) {
 
   }
 }
 
-export class AddItemSuccess implements Action {
-  readonly type = ItemActionTypes.AddItemSuccess;
-  constructor(private payload: Item) {
+export class UpdateItemSuccess implements Action {
+  readonly type = ItemActionTypes.UpdateItemSuccess;
+  constructor(public payload: Item) {
 
   }
 }
 
-export type ItemActions = { AddItem, AddItemSuccess, LoadItems, LoadItemsSuccess, NoItems };
+export type ItemActions = { AddItem, AddItemSuccess, LoadItems, LoadItemsSuccess, NoItems, UpdateItem, UpdateItemSuccess };

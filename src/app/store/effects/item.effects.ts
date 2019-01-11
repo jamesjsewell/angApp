@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { Action } from '@ngrx/store';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable, of} from 'rxjs';
 import { tap, filter } from 'rxjs/operators';
 import * as fromStore from '../reducers';
@@ -10,6 +10,11 @@ import { catchError, map, switchMap } from 'rxjs/operators';
 import { Item } from '../../Item'
 import * as itemActions from '../actions/item.actions';
 import * as favoriteActions from '../actions/favorite.actions'
+
+const httpOptions = {
+  headers: new HttpHeaders({ "Content-Type": "application/json" }),
+};
+
 
 @Injectable()
 export class ItemsEffects {
@@ -24,7 +29,7 @@ export class ItemsEffects {
   public addItem$ = this.actions$.pipe(
     ofType(itemActions.ItemActionTypes.AddItem),
     switchMap(( action: itemActions.AddItem) =>
-      this.http.post<Item>(this.itemsUrl, action.payload)
+      this.http.post<Item>(this.itemsUrl, action.payload, httpOptions)
         .pipe(
           map(( createdItem ) => {
             if(createdItem && createdItem.id) return new itemActions.AddItemSuccess(createdItem)
@@ -69,4 +74,31 @@ export class ItemsEffects {
     map(() => new favoriteActions.LoadFavorites())
   )
 
+  @Effect()
+  public updateItem$ = this.actions$.pipe(
+    ofType(itemActions.ItemActionTypes.UpdateItem),
+    switchMap(( action: itemActions.UpdateItem) =>
+      this.http.put<Item>(this.itemsUrl, action.payload, httpOptions)
+        .pipe(
+          map(( _ ) => {
+            return new itemActions.UpdateItemSuccess(action.payload)
+          }),
+          catchError((error) => {
+            return of({
+              type: "",
+              payload: { error }
+            });
+          })
+        )
+      )
+    )
+
 }
+
+// /** PUT: update the item on the server */
+// updateItem(item: Item): Observable<any> {
+//   return this.http.put(this.itemsUrl, item, httpOptions).pipe(
+//     tap(_ => this.log(`updated item id=${item.id}`)),
+//     catchError(this.handleError<any>("updateItem"))
+//   );
+// }
