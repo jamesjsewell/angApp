@@ -35,7 +35,6 @@ export class ItemDetailComponent implements OnInit {
   }
 
   save(): void {
-    // to-do, run goBack from when the effect completes
     this.store.dispatch(new itemActions.UpdateItem(this.item as Item))
   }
 }

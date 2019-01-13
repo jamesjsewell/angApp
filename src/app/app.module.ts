@@ -24,6 +24,7 @@ import { FavoritesEffects } from './store/effects/favorite.effects';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import {MatButtonModule} from '@angular/material/button';
     EffectsModule.forRoot([FavoritesEffects, ItemsEffects]),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     BrowserAnimationsModule,
-    MatButtonModule
+    MatButtonModule,
+    MatIconModule
   ],
   providers: [],
   bootstrap: [AppComponent],

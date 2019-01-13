@@ -1,10 +1,11 @@
 <ul class="items">
   <li *ngFor="let item of items$ | async">
-    <a routerLink="/detail/{{item.id}}">
-      <span class="badge">{{ item.id }}</span> {{ item.name }}
-    </a>
-
-    <button class="delete" title="delete item" (click)="delete(item)">x</button>
+    <strong>{{ item.name }}</strong>
+    <div class="buttons">
+      <button routerLink="/detail/{{item.id}}"><mat-icon>more</mat-icon></button>
+      <button><mat-icon>favorite_border</mat-icon></button>
+      <button title="delete item" (click)="delete(item)"><mat-icon>delete</mat-icon></button>
+    </div>
   </li>
 </ul>
 
