@@ -1,5 +1,6 @@
 <ul class="items">
   <li *ngFor="let item of items$ | async">
+    <div class="item_loading"><mat-spinner [diameter]="20" class="spinner"></mat-spinner></div>
     <strong>{{ item.name }}</strong>
     <div class="buttons">
       <button routerLink="/detail/{{item.id}}"><mat-icon>more</mat-icon></button>
