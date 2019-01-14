@@ -8,7 +8,9 @@ import { Item } from '../../Item'
 export enum FavoriteActionTypes {
   LoadFavorites = '[Favorite] Load Favorites',
   LoadFavoritesSuccess = '[Favorite] Load Favorites Success',
-  NoFavorites = '[Favorite] No Favorites'
+  NoFavorites = '[Favorite] No Favorites',
+  AddToFavorites = '[Favorite] Add To Favorites',
+  AddToFavoritesSuccess = '[Favorite] Add To Favorites Success'
 }
 
 export class LoadFavorites implements Action {
@@ -26,6 +28,17 @@ export class NoFavorites implements Action {
   readonly type = FavoriteActionTypes.NoFavorites;
 }
 
-export type FavoriteActions = { LoadFavorites, LoadFavoritesSuccess, NoFavorites };
+export class AddToFavorites implements Action {
+  readonly type = FavoriteActionTypes.AddToFavorites;
+  constructor(public payload: Item) {
+
+  }
+}
+
+export class AddToFavoritesSuccess implements Action {
+  readonly type = FavoriteActionTypes.AddToFavoritesSuccess;
+}
+
+export type FavoriteActions = { LoadFavorites, LoadFavoritesSuccess, NoFavorites, AddToFavorites, AddToFavoritesSuccess };
 
 

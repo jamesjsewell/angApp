@@ -4,6 +4,7 @@ import { Observable } from 'rxjs'
 import { Item } from "../Item";
 import * as fromStore from '../store/reducers';
 import * as itemActions from '../store/actions/item.actions';
+import * as favoriteActions from '../store/actions/favorite.actions'
 
 
 @Component({
@@ -38,5 +39,9 @@ export class ItemsComponent implements OnInit {
 
   delete(item: Item): void {
     this.store.dispatch(new itemActions.DeleteItem(item as Item))
+  }
+
+  favorite(item: Item): void {
+    this.store.dispatch(new favoriteActions.AddToFavorites(item as Item))
   }
 }

@@ -21,9 +21,7 @@ export class InMemoryDataService implements InMemoryDbService {
     ];
 
     const favorites = [
-      { id: 1, itemId: 15 },
-      { id: 2, itemId: 16 },
-      { id: 3, itemId: 17 }
+
     ]
     return { items, favorites };
   }

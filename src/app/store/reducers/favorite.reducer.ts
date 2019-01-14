@@ -24,6 +24,11 @@ export function reducer(state = initialState, action): State {
         favorites: action.payload
       }
 
+    case favoritesActions.FavoriteActionTypes.AddToFavoritesSuccess:
+      return {
+        ...state
+      }
+
     default:
       return state;
   }

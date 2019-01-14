@@ -1,4 +1,4 @@
 export class Favorite {
-  id: number;
+  id: string;
   itemId: number;
 }

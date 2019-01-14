@@ -3,7 +3,10 @@
     <strong>{{ item.name }}</strong>
     <div class="buttons">
       <button routerLink="/detail/{{item.id}}"><mat-icon>more</mat-icon></button>
-      <button><mat-icon>favorite_border</mat-icon></button>
+      <button  (click)="favorite(item)">
+        <mat-icon *ngIf="!item.favorited">favorite_border</mat-icon>
+        <mat-icon *ngIf="item.favorited">favorite</mat-icon>
+      </button>
       <button title="delete item" (click)="delete(item)"><mat-icon>delete</mat-icon></button>
     </div>
   </li>

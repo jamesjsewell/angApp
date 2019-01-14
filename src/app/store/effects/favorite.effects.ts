@@ -3,6 +3,7 @@ import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { Action } from '@ngrx/store';
 import { HttpClient } from "@angular/common/http";
+import * as UID from 'uuid/v1'
 import { Observable, of} from 'rxjs';
 import { tap, filter } from 'rxjs/operators';
 import * as fromStore from '../reducers';
@@ -43,6 +44,7 @@ export class FavoritesEffects {
               let filteredItems = []
               items.forEach((item)=>{
                 if(this.itemIds.includes(item.id)){
+                  item.favorited = true
                   filteredItems.push(item)
                 }
               })
@@ -64,4 +66,38 @@ export class FavoritesEffects {
           )
       )
     )
+
+  @Effect()
+  public addToFavorites$ = this.actions$.pipe(
+    ofType(favoriteActions.FavoriteActionTypes.AddToFavorites),
+    switchMap((action: favoriteActions.AddToFavorites ) => {
+
+      console.log('sending request')
+      return this.http.post<Favorite>(this.favoritesUrl, { id: UID(), itemId: action.payload.id } )
+        .pipe(
+          map((response: Favorite) => {
+            console.log('done')
+            action.payload.favorited = true
+            return new favoriteActions.AddToFavoritesSuccess()
+          }),
+          catchError((error) => {
+            return of({
+              type: "",
+              payload: { error }
+            });
+          })
+        )
+
+        }
+      )
+
+  )
+
+  @Effect()
+  public addToFavoritesSuccess$ = this.actions$.pipe(
+    ofType(favoriteActions.FavoriteActionTypes.AddToFavoritesSuccess),
+    map((_) => {
+      return new favoriteActions.LoadFavorites()
+    })
+  )
 }
