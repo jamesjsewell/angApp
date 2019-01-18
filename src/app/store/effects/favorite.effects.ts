@@ -71,13 +71,10 @@ export class FavoritesEffects {
   public addToFavorites$ = this.actions$.pipe(
     ofType(favoriteActions.FavoriteActionTypes.AddToFavorites),
     switchMap((action: favoriteActions.AddToFavorites ) => {
-
-      console.log('sending request')
       action.payload.loading = true
       return this.http.post<Favorite>(this.favoritesUrl, { id: UID(), itemId: action.payload.id } )
         .pipe(
           map((response: Favorite) => {
-            console.log('done')
             action.payload.favorited = true
             action.payload.loading = false
             return new favoriteActions.AddToFavoritesSuccess()

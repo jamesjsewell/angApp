@@ -110,10 +110,12 @@ export class ItemsEffects {
   @Effect()
   public deleteItem$ = this.actions$.pipe(
     ofType(itemActions.ItemActionTypes.DeleteItem),
-    switchMap(( action: itemActions.DeleteItem) =>
-      this.http.delete<Item>(`${this.itemsUrl}/${action.payload.id}`, httpOptions)
+    switchMap(( action: itemActions.DeleteItem) => {
+      action.payload.loading = true
+      return this.http.delete<Item>(`${this.itemsUrl}/${action.payload.id}`, httpOptions)
         .pipe(
           map(( _ ) => {
+            action.payload.loading = true
             return new itemActions.DeleteItemSuccess(action.payload)
           }),
           catchError((error) => {
@@ -123,6 +125,7 @@ export class ItemsEffects {
             });
           })
         )
+        }
       )
     )
 }
