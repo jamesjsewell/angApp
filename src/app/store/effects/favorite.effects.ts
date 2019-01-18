@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import { Action } from '@ngrx/store';
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import * as UID from 'uuid/v1'
 import { Observable, of} from 'rxjs';
 import { tap, filter } from 'rxjs/operators';
@@ -12,6 +12,10 @@ import { Favorite } from '../../Favorite'
 import { Item } from '../../Item'
 import * as favoriteActions from '../actions/favorite.actions';
 import * as itemActions from '../actions/favorite.actions';
+
+const httpOptions = {
+  headers: new HttpHeaders({ "Content-Type": "application/json" }),
+};
 
 @Injectable()
 export class FavoritesEffects {
@@ -33,7 +37,7 @@ export class FavoritesEffects {
             this.itemIds = response.map((fav)=>{
               return fav.itemId
             })
-
+            console.log(this.itemIds)
             return this.items$ = this.store.select(fromStore.getItems)
 
           }),
@@ -72,10 +76,12 @@ export class FavoritesEffects {
     ofType(favoriteActions.FavoriteActionTypes.AddToFavorites),
     switchMap((action: favoriteActions.AddToFavorites ) => {
       action.payload.loading = true
-      return this.http.post<Favorite>(this.favoritesUrl, { id: UID(), itemId: action.payload.id } )
+      const favoriteId = UID()
+      return this.http.post<Favorite>(this.favoritesUrl, { id: favoriteId, itemId: action.payload.id } )
         .pipe(
           map((response: Favorite) => {
             action.payload.favorited = true
+            action.payload.favoriteId = favoriteId
             action.payload.loading = false
             return new favoriteActions.AddToFavoritesSuccess()
           }),
@@ -99,4 +105,39 @@ export class FavoritesEffects {
       return new favoriteActions.LoadFavorites()
     })
   )
+
+  @Effect()
+  public removeFromFavorites$ = this.actions$.pipe(
+    ofType(favoriteActions.FavoriteActionTypes.RemoveFromFavorites),
+    switchMap((action: favoriteActions.RemoveFromFavorites ) => {
+      action.payload.loading = true
+      return this.http.delete<Favorite>(`${this.favoritesUrl}/${action.payload.favoriteId}` )
+        .pipe(
+          map((response: Favorite) => {
+            action.payload.favoriteId = ""
+            action.payload.favorited = false
+            action.payload.loading = false
+            return new favoriteActions.RemoveFromFavoritesSuccess()
+          }),
+          catchError((error) => {
+            return of({
+              type: "",
+              payload: { error }
+            });
+          })
+        )
+
+    })
+
+  )
+
+  @Effect()
+  public removeFromFavoritesSuccess$ = this.actions$.pipe(
+    ofType(favoriteActions.FavoriteActionTypes.RemoveFromFavoritesSuccess),
+    map((_) => {
+      return new favoriteActions.LoadFavorites()
+    })
+  )
+
+
 }

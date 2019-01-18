@@ -42,6 +42,11 @@ export class ItemsComponent implements OnInit {
   }
 
   favorite(item: Item): void {
-    this.store.dispatch(new favoriteActions.AddToFavorites(item as Item))
+    if(!item.favorited){
+      this.store.dispatch(new favoriteActions.AddToFavorites(item as Item))
+    }
+    else{
+      this.store.dispatch(new favoriteActions.RemoveFromFavorites(item as Item))
+    }
   }
 }
