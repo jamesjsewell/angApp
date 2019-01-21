@@ -1,0 +1,16 @@
+.favorite-wrapper{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  margin: auto;
+  margin-bottom: .5em;
+  width: 20em;
+  background-color: rgba(0,0,0,.3);
+  .remove-favorite-wrapper{
+    padding: .3em;
+  }
+  .favorite-name{
+    padding: .3em;
+  }
+}
+

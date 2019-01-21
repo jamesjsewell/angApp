@@ -1,3 +1,9 @@
-<ul *ngFor="let favorite of favorites$ | async">
-  {{favorite.name}}
+<ul>
+  <li class="favorite-wrapper" *ngFor="let favorite of favorites$ | async">
+    <a class="favorite-name" routerLink="/detail/{{favorite.id}}">{{favorite.name}}</a>
+    <div class="remove-favorite-wrapper">
+      <p>remove favorite</p>
+      <button title="delete favorite" (click)="delete(favorite)"><mat-icon>delete</mat-icon></button>
+    </div>
+  </li>
 </ul>
